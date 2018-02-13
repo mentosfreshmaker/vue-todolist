@@ -5,7 +5,7 @@
         <svg class="white" data-icon="skull" viewBox="0 0 32 32" style="fill:currentcolor"><title>skull icon</title><path d="M16 0 C6 0 2 4 2 14 L2 22 L6 24 L6 30 L26 30 L26 24 L30 22 L30 14 C30 4 26 0 16 0 M9 12 A4.5 4.5 0 0 1 9 21 A4.5 4.5 0 0 1 9 12 M23 12 A4.5 4.5 0 0 1 23 21 A4.5 4.5 0 0 1 23 12"></path></svg>
       </a>
       <h1 class="mt2 mb0 baskerville i fw1 f1">Todo List</h1>
-      <h2 class="mt2 mb0 f6 fw4 ttu tracked">All Todos</h2>
+      <h2 class="mt2 mb0 f6 fw4 ttu tracked">Active Todos</h2>
       <nav class="bt bb tc mw7 center mt4">
         <nuxt-link exact class="f6 f5-l link bg-animate black-80 hover-bg-lightest-blue dib pa3 ph4-l" to="/">All</nuxt-link>
         <nuxt-link class="f6 f5-l link bg-animate black-80 hover-bg-light-green dib pa3 ph4-l" to="/active">Active</nuxt-link>
@@ -13,51 +13,27 @@
       </nav>
   </header>
 
-    <form @submit.prevent="add(task)">
-      <input v-model="task" class="input-reset ba b--black-20 pa2 mb2" type="text"/>
-    </form>
-
     <article>
-      <h1 class="f4 bold mw6">Todos</h1>
       <ul class="list pl0 ml0 mw6 ba b--light-silver br2">
-        <li :key="todo.id" v-for="todo in todos" class="flex items-center ph3 pv3 bb b--light-silver">
-          <span :class="{completed: todo.complete}" class="flex-auto">{{todo.task}}</span>
-          <button><img @click="toggleComplete(todo)" src="https://icon.now.sh/check" alt="complete" /></button>
-          <button><img @click="remove(todo.id)" src="https://icon.now.sh/trash" alt="delete" /></button>
-        </li>
+        <li :key="todo.id" v-for="todo in todos" class="ph3 pv3 bb b--light-silver">{{todo.task}}</li>
       </ul>
     </article>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import { init } from './shared';
 
 export default {
   fetch: init,
-  data() {
-    return {
-      task: ''
-    }
-  },
   computed: {
     ...mapState({
-      todos: state => state.todos
+      todos: state => state.todos.filter(t => !t.complete)
     })
-  },
-  methods: {
-    ...mapActions([
-      'add',
-      'remove',
-      'toggleComplete'
-    ])
   }
 }
 </script>
 
-<style scoped>
-.completed {
-  text-decoration: line-through
-}
+<style>
 </style>
