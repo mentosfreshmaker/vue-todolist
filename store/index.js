@@ -18,7 +18,7 @@ const createStore = () => {
       },
       update(state, todo) {
         state.todos = state.todos.map(t =>
-          t == todo.id
+          t.id == todo.id
             ? todo
             : t
         )
@@ -38,11 +38,11 @@ const createStore = () => {
         commit('remove', id)
       },
       async toggleComplete({ commit }, todo) {
-        console.log(todo)
         const res = await axios.patch(
           `https://todos-dvqxnrfdky.now.sh/todos/${todo.id}`,
           { complete: !todo.complete }
         )
+        console.log('res', res.data)
         commit('update', res.data)
       }
     }
