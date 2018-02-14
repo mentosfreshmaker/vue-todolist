@@ -1,8 +1,22 @@
 <template>
   <div>
+    <todo-header></todo-header>
+    <navigation></navigation>
     <nuxt/>
   </div>
 </template>
+
+<script>
+import todoHeader from '../components/todo-header'
+import navigation from '../components/navigation'
+
+export default {
+  components: {
+    todoHeader,
+    navigation
+  }
+}
+</script>
 
 <style>
 html {
