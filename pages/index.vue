@@ -36,10 +36,13 @@ export default {
   },
   methods: {
     ...mapActions([
-      'add',
       'remove',
       'toggleComplete'
-    ])
+    ]),
+    add(task) {
+      this.$store.dispatch('add', task)
+      this.task = ''
+    }
   }
 }
 </script>

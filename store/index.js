@@ -42,7 +42,6 @@ const createStore = () => {
           `https://todos-dvqxnrfdky.now.sh/todos/${todo.id}`,
           { complete: !todo.complete }
         )
-        console.log('res', res.data)
         commit('update', res.data)
       }
     }
